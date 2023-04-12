@@ -13,7 +13,7 @@ public inherited sharing class RelatedHandler {
     * @return    List<Contact>
     **********************************************************************************************************************************/
     public static List<Contact> getContacts(string recId){
-        return [SELECT AccountId,Id, FirstName,LastName, Phone, Email FROM Contact WHERE AccountId = :RecId];
+        return [SELECT AccountId,Id, FirstName,LastName, Phone, Email FROM Contact WHERE AccountId = :RecId WITH SECURITY_ENFORCED];
     }
     /*********************************************************************************************************************************
     * @description  This method used to delete the contacts according to account 
@@ -26,12 +26,10 @@ public inherited sharing class RelatedHandler {
             for(Id idCon : lstConIds) {
                 lstConsToDelete.add(new Contact(Id = idCon));
             }
-            if(!lstConsToDelete.isEmpty()) {
+            if(Contact.SObjectType.getDescribe().isDeletable() && lstConsToDelete.isEmpty()!= true) {
                 delete lstConsToDelete;
             }
         }
-        catch(Exception ex) {
-            throw new AuraHandledException(ex.getMessage());
-        }
+        catch(Exception ex) {throw new AuraHandledException(ex.getMessage());}
     }
 }
