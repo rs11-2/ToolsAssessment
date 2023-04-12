@@ -47,6 +47,7 @@ export default class RelatedListComp extends NavigationMixin(LightningElement) {
     contacts(result) {
         this.refreshTable = result;
         if (result.data) {
+            console.log('=========='+ JSON.stringify(result.data));
             this.data = result.data;
             this.error = undefined;
 
