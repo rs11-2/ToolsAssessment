@@ -1,0 +1,36 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-card>
+        <div class="header"
+            style="display: flex;
+            padding: 7px;
+            justify-content: space-between;">
+            <p 
+            style="font-size:large;
+            font-weight: 400;"> Contacts </p>
+            <lightning-button label="New" type="submit" variant="brand-outline" onclick={openContact}></lightning-button>
+        </div>
+       <div style="width: auto;">
+           <template if:true={data}> 
+                <lightning-datatable data={data}
+                                    columns={columns}
+                                    key-field="id"
+                                    hide-checkbox-column="true"
+                                    sorted-by={sortBy}
+                                    sorted-direction={sortDirection}
+                                    onsort={doSorting}
+                                    onrowaction={handleRowActions}>
+                </lightning-datatable>
+            </template>
+
+       </div>
+
+       <!-- Spinner -->
+       <div if:true={showLoadingSpinner}>
+           <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+       </div>
+
+       <!-- Detail view modal -->
+        
+   </lightning-card>   
+</template>
